@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Automated Tests Dashboard</title>
+  </head>
+  <body>
+    <h1>Automated Tests Dashboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Suite</th>
+          <th>Test Case</th>
+          <th>Result</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="test-results">
+      </tbody>
+    </table>
+
+    <script>
+      // replace with your REST API endpoint
+      const apiUrl = "https://api.browserstack.com/automate/builds/<build-id";
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(testResults => {
+          const testResultsTable = document.getElementById("test-results");
+          testResults.forEach(testResult => {
+            const tr = document.createElement("tr");
+            const tdSuite = document.createElement("td");
+            tdSuite.textContent = testResult.suite;
+            const tdCase = document.createElement("td");
+            tdCase.textContent = testResult.case;
+            const tdResult = document.createElement("td");
+            tdResult.textContent = testResult.result;
+            const tdDate = document.createElement("td");
+            tdDate.textContent = testResult.date;
+            tr.appendChild(tdSuite);
+            tr.appendChild(tdCase);
+            tr.appendChild(tdResult);
+            tr.appendChild(tdDate);
+            testResultsTable.appendChild(tr);
+          });
+        })
+        .catch(error => console.error("Error fetching test results", error));
+    </script>
+  </body>
+</html>
