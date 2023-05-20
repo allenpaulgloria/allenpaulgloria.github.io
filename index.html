@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>Automated Test Results</title>
+<script>
+fetch('https://your-site-name.netlify.app/.netlify/functions/browserstack')
+  .then(response => response.json())
+  .then(data => {
+    // Display the data on your page
+    console.log(data);
+  });
+</script>
     <style>
       body {
         font-family: Arial, sans-serif;
